@@ -371,136 +371,201 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        console.log('=== SURVEY DEBUG MODE ===');
-
-        // Test if basic JavaScript is working
-        console.log('JavaScript is running');
-
         // Passenger steps
         const passengerSteps = Array.from(document.querySelectorAll('#passenger-form .form-step'));
-        console.log('Found passenger steps:', passengerSteps.length);
-
+        
         function showPassengerStep(step) {
-            console.log('Showing passenger step:', step);
-            passengerSteps.forEach((el, i) => {
-                el.classList.toggle('hidden', i !== step);
-            });
+            passengerSteps.forEach((el, i) => el.classList.toggle('hidden', i !== step));
             const progress = ((step + 1) / passengerSteps.length) * 100;
             document.getElementById('passenger-progress').style.width = progress + '%';
         }
-
+        
         // Passenger navigation
         document.getElementById('start-passenger').addEventListener('click', function() {
-            console.log('START PASSENGER clicked');
             document.querySelector('.survey-type-selector').classList.add('hidden');
             document.getElementById('passenger-form').classList.remove('hidden');
             showPassengerStep(0);
         });
-
-        // Test if navigation buttons work
+        
         document.getElementById('passenger-next-1').addEventListener('click', function() {
-            console.log('Passenger Next 1 clicked');
+            // Validate step 1 before proceeding
+            const ageSelected = document.getElementById('passenger-age').value !== '';
+            const frequencySelected = document.querySelector('input[name="passenger-frequency"]:checked');
+            
+            if (!ageSelected || !frequencySelected) {
+                alert('Please answer all questions before continuing.');
+                return;
+            }
             showPassengerStep(1);
         });
-
+        
         document.getElementById('passenger-next-2').addEventListener('click', function() {
-            console.log('Passenger Next 2 clicked');
+            // Validate step 2
+            const transportSelected = document.querySelector('input[name="passenger-transport"]:checked');
+            if (!transportSelected) {
+                alert('Please select your primary mode of transport.');
+                return;
+            }
             showPassengerStep(2);
         });
-
+        
         document.getElementById('passenger-next-3').addEventListener('click', function() {
-            console.log('Passenger Next 3 clicked');
+            // Validate step 3
+            const satisfactionSelected = document.querySelector('input[name="passenger-satisfaction"]:checked');
+            if (!satisfactionSelected) {
+                alert('Please rate your satisfaction level.');
+                return;
+            }
             showPassengerStep(3);
         });
-
+        
         document.getElementById('passenger-next-4').addEventListener('click', function() {
-            console.log('Passenger Next 4 clicked');
+            // Validate step 4
+            const featureDriver = document.querySelector('input[name="feature-driver"]:checked');
+            const featureDoor = document.querySelector('input[name="feature-door"]:checked');
+            
+            if (!featureDriver || !featureDoor) {
+                alert('Please rate both features.');
+                return;
+            }
             showPassengerStep(4);
         });
 
-        // Test submit button directly
-        const passengerSubmitBtn = document.querySelector('#passenger-form button[type="submit"]');
-        if (passengerSubmitBtn) {
-            passengerSubmitBtn.addEventListener('click', function(e) {
-                console.log('=== PASSENGER SUBMIT BUTTON CLICKED ===');
-                console.log('Form validity:', document.getElementById('passenger-form').checkValidity());
-                
-                // Test if we can show thank you message
-                document.getElementById('passenger-form').classList.add('hidden');
-                document.getElementById('thank-you').classList.remove('hidden');
-                console.log('Thank you message should be visible');
-                
-                // Let the form submit normally
-                console.log('Allowing form to submit to Formspree...');
-            });
-        } else {
-            console.error('Passenger submit button not found!');
-        }
+        document.getElementById('passenger-prev-2').addEventListener('click', () => showPassengerStep(0));
+        document.getElementById('passenger-prev-3').addEventListener('click', () => showPassengerStep(1));
+        document.getElementById('passenger-prev-4').addEventListener('click', () => showPassengerStep(2));
+        document.getElementById('passenger-prev-5').addEventListener('click', () => showPassengerStep(3));
 
-        // Also keep the form submit handler
+        // Passenger Form Submission - WITH VALIDATION
         document.getElementById('passenger-form').addEventListener('submit', function(e) {
-            console.log('=== PASSENGER FORM SUBMIT EVENT ===');
-            console.log('Form is submitting...');
+            // Validate final step
+            const likelySelected = document.querySelector('input[name="passenger-likely"]:checked');
             
-            // Show thank you message immediately
+            if (!likelySelected) {
+                alert('Please answer the final question before submitting.');
+                e.preventDefault(); // Stop submission
+                return;
+            }
+            
+            // If all validation passes, show thank you message
             document.getElementById('passenger-form').classList.add('hidden');
             document.getElementById('thank-you').classList.remove('hidden');
             
-            // Don't prevent default - let it submit
-            console.log('Form should submit to Formspree now');
+            // Form will automatically submit to Formspree (no e.preventDefault())
         });
 
-        // Driver form (similar setup)
+        // Driver steps
         const driverSteps = Array.from(document.querySelectorAll('#driver-form .form-step'));
-        console.log('Found driver steps:', driverSteps.length);
-
+        
         function showDriverStep(step) {
-            console.log('Showing driver step:', step);
-            driverSteps.forEach((el, i) => {
-                el.classList.toggle('hidden', i !== step);
-            });
+            driverSteps.forEach((el, i) => el.classList.toggle('hidden', i !== step));
             const progress = ((step + 1) / driverSteps.length) * 100;
             document.getElementById('driver-progress').style.width = progress + '%';
         }
-
+        
+        // Driver navigation
         document.getElementById('start-driver').addEventListener('click', function() {
-            console.log('START DRIVER clicked');
             document.querySelector('.survey-type-selector').classList.add('hidden');
             document.getElementById('driver-form').classList.remove('hidden');
             showDriverStep(0);
         });
 
-        // Test driver submit button
-        const driverSubmitBtn = document.querySelector('#driver-form button[type="submit"]');
-        if (driverSubmitBtn) {
-            driverSubmitBtn.addEventListener('click', function(e) {
-                console.log('=== DRIVER SUBMIT BUTTON CLICKED ===');
-                console.log('Form validity:', document.getElementById('driver-form').checkValidity());
-                
+        document.getElementById('driver-next-0').addEventListener('click', function() {
+            const driveStatus = document.querySelector('input[name="driver-currently-drives"]:checked');
+            if (!driveStatus) {
+                alert('Please select an option to continue.');
+                return;
+            }
+            if (driveStatus.value === 'No') {
                 document.getElementById('driver-form').classList.add('hidden');
                 document.getElementById('thank-you').classList.remove('hidden');
-                console.log('Thank you message should be visible');
-            });
-        } else {
-            console.error('Driver submit button not found!');
-        }
+            } else {
+                showDriverStep(1);
+            }
+        });
 
+        document.getElementById('driver-next-1').addEventListener('click', function() {
+            const access = document.querySelector('input[name="driver-car-access"]:checked');
+            if (!access) {
+                alert('Please indicate if you have access to a car.');
+                return;
+            }
+            if (access.value === 'No') {
+                document.getElementById('driver-form').classList.add('hidden');
+                document.getElementById('thank-you').classList.remove('hidden');
+            } else {
+                showDriverStep(2);
+            }
+        });
+
+        // Driver step navigation with validation
+        document.getElementById('driver-next-2').addEventListener('click', function() {
+            const frequency = document.querySelector('input[name="driver-frequency"]:checked');
+            const reason = document.querySelector('input[name="driver-reason"]:checked');
+            
+            if (!frequency || !reason) {
+                alert('Please answer both questions before continuing.');
+                return;
+            }
+            showDriverStep(3);
+        });
+
+        document.getElementById('driver-next-3').addEventListener('click', function() {
+            const emptySeats = document.querySelector('input[name="driver-empty-seats"]:checked');
+            const givenLift = document.querySelector('input[name="driver-given-lift"]:checked');
+            
+            if (!emptySeats || !givenLift) {
+                alert('Please answer both questions before continuing.');
+                return;
+            }
+            showDriverStep(4);
+        });
+
+        document.getElementById('driver-next-4').addEventListener('click', function() {
+            const interest = document.querySelector('input[name="driver-interest-share"]:checked');
+            if (!interest) {
+                alert('Please indicate your interest level.');
+                return;
+            }
+            showDriverStep(5);
+        });
+
+        document.getElementById('driver-next-5').addEventListener('click', function() {
+            // No validation needed for concerns (they're optional)
+            showDriverStep(6);
+        });
+
+        document.getElementById('driver-prev-2').addEventListener('click', () => showDriverStep(1));
+        document.getElementById('driver-prev-3').addEventListener('click', () => showDriverStep(2));
+        document.getElementById('driver-prev-4').addEventListener('click', () => showDriverStep(3));
+        document.getElementById('driver-prev-5').addEventListener('click', () => showDriverStep(4));
+        document.getElementById('driver-prev-6').addEventListener('click', () => showDriverStep(5));
+
+        // Driver Form Submission - WITH VALIDATION
         document.getElementById('driver-form').addEventListener('submit', function(e) {
-            console.log('=== DRIVER FORM SUBMIT EVENT ===');
+            // Validate final step (features question)
+            const features = document.querySelectorAll('input[name="driver-features"]:checked');
+            
+            // Features are optional, so no validation needed
+            
+            // If all validation passes, show thank you message
             document.getElementById('driver-form').classList.add('hidden');
             document.getElementById('thank-you').classList.remove('hidden');
+            
+            // Form will automatically submit to Formspree (no e.preventDefault())
         });
 
         // New survey button
         document.getElementById('new-survey').addEventListener('click', function() {
-            console.log('New survey button clicked');
             document.getElementById('thank-you').classList.add('hidden');
             document.querySelector('.survey-type-selector').classList.remove('hidden');
+            document.querySelectorAll('form').forEach(form => {
+                form.reset();
+                form.classList.add('hidden');
+            });
+            document.getElementById('passenger-progress').style.width = '0%';
+            document.getElementById('driver-progress').style.width = '0%';
         });
-
-        console.log('=== DEBUG SETUP COMPLETE ===');
-        console.log('Open browser console (F12) and test the survey');
-        console.log('Look for messages above when you click buttons');
     });
 </script>
 </body>
