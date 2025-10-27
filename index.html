@@ -376,21 +376,21 @@
             }
             document.getElementById('start-passenger').addEventListener('click', function() {
                 document.querySelector('.survey-type-selector').classList.add('hidden');
-                document.getElementById('passenger-form').classList.remove('hidden');
+                //document.getElementById('passenger-form').classList.remove('hidden');
                 showPassengerStep(0);
             });
-            document.getElementById('passenger-next-1').addEventListener('click', () => showPassengerStep(1));
-            document.getElementById('passenger-next-2').addEventListener('click', () => showPassengerStep(2));
-            document.getElementById('passenger-next-3').addEventListener('click', () => showPassengerStep(3));
-            document.getElementById('passenger-next-4').addEventListener('click', () => showPassengerStep(4));
-            document.getElementById('passenger-prev-2').addEventListener('click', () => showPassengerStep(0));
-            document.getElementById('passenger-prev-3').addEventListener('click', () => showPassengerStep(1));
-            document.getElementById('passenger-prev-4').addEventListener('click', () => showPassengerStep(2));
-            document.getElementById('passenger-prev-5').addEventListener('click', () => showPassengerStep(3));
-            document.getElementById('passenger-form').addEventListener('submit', function(e) {
+            //document.getElementById('passenger-next-1').addEventListener('click', () => showPassengerStep(1));
+            //document.getElementById('passenger-next-2').addEventListener('click', () => showPassengerStep(2));
+            //document.getElementById('passenger-next-3').addEventListener('click', () => showPassengerStep(3));
+            //document.getElementById('passenger-next-4').addEventListener('click', () => showPassengerStep(4));
+            //document.getElementById('passenger-prev-2').addEventListener('click', () => showPassengerStep(0));
+            //document.getElementById('passenger-prev-3').addEventListener('click', () => showPassengerStep(1));
+            //document.getElementById('passenger-prev-4').addEventListener('click', () => showPassengerStep(2));
+            //document.getElementById('passenger-prev-5').addEventListener('click', () => showPassengerStep(3));
+            //document.getElementById('passenger-form').addEventListener('submit', function(e) {
                 e.preventDefault();
-                document.getElementById('passenger-form').classList.add('hidden');
-                document.getElementById('thank-you').classList.remove('hidden');
+                //document.getElementById('passenger-form').classList.add('hidden');
+                //document.getElementById('thank-you').classList.remove('hidden');
             });
 
             // Driver steps
