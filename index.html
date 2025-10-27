@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Transportation Research Survey</title>
     <style>
-        /* Combined styles (based mainly on the main file) */
+        /* Your existing CSS remains the same */
         * { margin:0; padding:0; box-sizing:border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
         :root {
             --primary: #2c5aa0; --primary-light: #4a76c4; --secondary: #f8a41c;
@@ -86,14 +86,14 @@
             </div>
         </section>
 
-        <!-- Passenger form (unchanged) -->
+        <!-- Passenger form -->
         <form id="passenger-form" class="survey-form hidden" action="mailto:newashiraf@gmail.com" method="post" enctype="text/plain">
             <div class="progress-bar"><div class="progress" id="passenger-progress"></div></div>
 
             <div class="form-step" id="passenger-step-1">
                 <div class="form-group">
                     <label for="passenger-age">1. Which of these age groups do you fall into?</label>
-                    <select id="passenger-age" required>
+                    <select id="passenger-age" name="passenger-age" required>
                         <option value="" disabled selected>Select your age group</option>
                         <option>18-24</option><option>25-34</option><option>35-44</option><option>45+</option>
                     </select>
@@ -119,7 +119,7 @@
                         <label class="checkbox-option"><input type="checkbox" name="passenger-reason" value="Work/Business"> Work/Business</label>
                         <label class="checkbox-option"><input type="checkbox" name="passenger-reason" value="School/University"> School/University</label>
                         <label class="checkbox-option"><input type="checkbox" name="passenger-reason" value="Special Events"> Special Events (weddings, funerals)</label>
-                        <label class="checkbox-option">Other: <input type="text" id="passenger-reason-other"></label>
+                        <label class="checkbox-option">Other: <input type="text" name="passenger-reason-other" id="passenger-reason-other"></label>
                     </div>
                 </div>
                 <div class="form-group">
@@ -130,7 +130,7 @@
                         <label class="radio-option"><input type="radio" name="passenger-transport" value="Boda Boda"> Boda Boda</label>
                         <label class="radio-option"><input type="radio" name="passenger-transport" value="Private Car"> Private Car</label>
                         <label class="radio-option"><input type="radio" name="passenger-transport" value="Hiring a car"> Hiring a car</label>
-                        <label class="radio-option">Other: <input type="text" id="passenger-transport-other"></label>
+                        <label class="radio-option">Other: <input type="text" name="passenger-transport-other" id="passenger-transport-other"></label>
                     </div>
                 </div>
                 <div class="form-navigation">
@@ -159,7 +159,7 @@
                         <label class="checkbox-option"><input type="checkbox" name="passenger-frustrations" value="High cost"> High cost</label>
                         <label class="checkbox-option"><input type="checkbox" name="passenger-frustrations" value="Inconvenience"> Inconvenience</label>
                         <label class="checkbox-option"><input type="checkbox" name="passenger-frustrations" value="Lack of flexibility"> Lack of flexibility</label>
-                        <label class="checkbox-option">Other: <input type="text" id="passenger-frustrations-other"></label>
+                        <label class="checkbox-option">Other: <input type="text" name="passenger-frustrations-other" id="passenger-frustrations-other"></label>
                     </div>
                 </div>
                 <div class="form-navigation">
@@ -212,7 +212,7 @@
             </div>
         </form>
 
-        <!-- DRIVER FORM: merged full driver survey from file 2, adapted into main design -->
+        <!-- Driver form -->
         <form id="driver-form" class="survey-form hidden" action="mailto:newashiraf@gmail.com" method="post" enctype="text/plain">
             <div class="progress-bar"><div class="progress" id="driver-progress"></div></div>
 
@@ -223,7 +223,7 @@
                     <div class="radio-group">
                         <label class="radio-option"><input type="radio" name="driver-currently-drives" value="Yes" required> Yes, I drive such trips myself</label>
                         <label class="radio-option"><input type="radio" name="driver-currently-drives" value="Sometimes"> Sometimes, depending on the situation</label>
-                        <label class="radio-option"><input type="radio" name="driver-currently-drives" value="No"> No, I don’t usually drive those trips</label>
+                        <label class="radio-option"><input type="radio" name="driver-currently-drives" value="No"> No, I don't usually drive those trips</label>
                     </div>
                 </div>
                 <div class="form-navigation"><button type="button" class="btn" id="driver-next-0">Next</button></div>
@@ -241,7 +241,7 @@
                 <div class="form-navigation"><button type="button" class="btn" id="driver-next-1">Next</button></div>
             </div>
 
-            <!-- Step 2: Travel frequency (expanded to match user's requested options) -->
+            <!-- Step 2: Travel frequency -->
             <div class="form-step hidden" id="driver-step-2">
                 <div class="form-group">
                     <label>3. How often do you make long-distance trips (e.g., 50km or more) in your car?</label>
@@ -259,7 +259,7 @@
                         <label class="radio-option"><input type="radio" name="driver-reason" value="Work/Business Commute" required> Work/Business Commute</label>
                         <label class="radio-option"><input type="radio" name="driver-reason" value="Visiting Family/Friends"> Visiting Family/Friends</label>
                         <label class="radio-option"><input type="radio" name="driver-reason" value="Personal Errands"> Personal Errands</label>
-                        <label class="radio-option">Other: <input type="text" id="driver-reason-other"></label>
+                        <label class="checkbox-option">Other: <input type="text" name="driver-reason-other" id="driver-reason-other"></label>
                     </div>
                 </div>
 
@@ -324,7 +324,7 @@
                         <label class="checkbox-option"><input type="checkbox" name="driver-concerns" value="Payment issues"> Payment issues (haggling, not paying)</label>
                         <label class="checkbox-option"><input type="checkbox" name="driver-concerns" value="Inconvenience"> Inconvenience (going out of my route)</label>
                         <label class="checkbox-option"><input type="checkbox" name="driver-concerns" value="Liability"> Liability in case of an accident</label>
-                        <label class="checkbox-option">Other: <input type="text" id="driver-concerns-other"></label>
+                        <label class="checkbox-option">Other: <input type="text" name="driver-concerns-other" id="driver-concerns-other"></label>
                     </div>
                 </div>
                 <div class="form-navigation">
@@ -376,21 +376,24 @@
             }
             document.getElementById('start-passenger').addEventListener('click', function() {
                 document.querySelector('.survey-type-selector').classList.add('hidden');
-                //document.getElementById('passenger-form').classList.remove('hidden');
+                document.getElementById('passenger-form').classList.remove('hidden');
                 showPassengerStep(0);
             });
-            //document.getElementById('passenger-next-1').addEventListener('click', () => showPassengerStep(1));
-            //document.getElementById('passenger-next-2').addEventListener('click', () => showPassengerStep(2));
-            //document.getElementById('passenger-next-3').addEventListener('click', () => showPassengerStep(3));
-            //document.getElementById('passenger-next-4').addEventListener('click', () => showPassengerStep(4));
-            //document.getElementById('passenger-prev-2').addEventListener('click', () => showPassengerStep(0));
-            //document.getElementById('passenger-prev-3').addEventListener('click', () => showPassengerStep(1));
-            //document.getElementById('passenger-prev-4').addEventListener('click', () => showPassengerStep(2));
-            //document.getElementById('passenger-prev-5').addEventListener('click', () => showPassengerStep(3));
-            //document.getElementById('passenger-form').addEventListener('submit', function(e) {
-                e.preventDefault();
-                //document.getElementById('passenger-form').classList.add('hidden');
-                //document.getElementById('thank-you').classList.remove('hidden');
+            document.getElementById('passenger-next-1').addEventListener('click', () => showPassengerStep(1));
+            document.getElementById('passenger-next-2').addEventListener('click', () => showPassengerStep(2));
+            document.getElementById('passenger-next-3').addEventListener('click', () => showPassengerStep(3));
+            document.getElementById('passenger-next-4').addEventListener('click', () => showPassengerStep(4));
+            document.getElementById('passenger-prev-2').addEventListener('click', () => showPassengerStep(0));
+            document.getElementById('passenger-prev-3').addEventListener('click', () => showPassengerStep(1));
+            document.getElementById('passenger-prev-4').addEventListener('click', () => showPassengerStep(2));
+            document.getElementById('passenger-prev-5').addEventListener('click', () => showPassengerStep(3));
+            
+            // FIXED: Remove e.preventDefault() to allow form submission
+            document.getElementById('passenger-form').addEventListener('submit', function(e) {
+                // Allow the form to submit via mailto:
+                document.getElementById('passenger-form').classList.add('hidden');
+                document.getElementById('thank-you').classList.remove('hidden');
+                // Don't call e.preventDefault() - let the form submit naturally
             });
 
             // Driver steps
@@ -443,27 +446,27 @@
             document.getElementById('driver-prev-5').addEventListener('click', () => showDriverStep(4));
             document.getElementById('driver-prev-6').addEventListener('click', () => showDriverStep(5));
 
+            // FIXED: Remove e.preventDefault() to allow form submission
             document.getElementById('driver-form').addEventListener('submit', function(e) {
-                e.preventDefault();
-                // Collecting data could be added here. For now, just show thank-you.
+                // Allow the form to submit via mailto:
                 document.getElementById('driver-form').classList.add('hidden');
                 document.getElementById('thank-you').classList.remove('hidden');
+                // Don't call e.preventDefault() - let the form submit naturally
             });
 
             // New survey button
             document.getElementById('new-survey').addEventListener('click', function() {
                 document.getElementById('thank-you').classList.add('hidden');
                 document.querySelector('.survey-type-selector').classList.remove('hidden');
-                document.getElementById('passenger-form').reset();
-                document.getElementById('driver-form').reset();
-                // reset progress bars
+                // Reset forms
+                document.querySelectorAll('form').forEach(form => {
+                    form.reset();
+                    form.classList.add('hidden');
+                });
+                // Reset progress bars
                 document.getElementById('passenger-progress').style.width = '0%';
                 document.getElementById('driver-progress').style.width = '0%';
             });
-
-            // Initialize
-            showPassengerStep(0);
-            showDriverStep(0);
         });
     </script>
 </body>
